@@ -41,11 +41,10 @@ namespace Export_Console.Lib
 
         public static DateTime ConvertStrToDate(string srcValue)
         {
-            DateTime dt;
-            if (!string.IsNullOrEmpty(srcValue))
+            if (!string.IsNullOrWhiteSpace(srcValue))
                 foreach (CultureInfo cultureInfo in CultureInfo.GetCultures(CultureTypes.AllCultures))
                 {
-                    if (DateTime.TryParse(srcValue, cultureInfo, DateTimeStyles.None, out dt)) { return dt; }
+                    if (DateTime.TryParse(srcValue, cultureInfo, DateTimeStyles.None, out var dt)) { return dt; }
                 }
             return DateTime.MinValue;
         }

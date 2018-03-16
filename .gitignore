@@ -274,3 +274,11 @@ dkms.conf
 /packages/System.ValueTuple.4.4.0/THIRD-PARTY-NOTICES.TXT
 /packages/System.ValueTuple.4.4.0/useSharedDesignerContext.txt
 /packages/System.ValueTuple.4.4.0/version.txt
+/Export_Console/.vs/Export_Console/v15/.suo
+/Export_Console/.vs/Export_Console/v15/Server/sqlite3/db.lock
+/Export_Console/.vs/Export_Console/v15/Server/sqlite3/storage.ide
+/Export_Console/obj/Debug/Export_Console.csproj.CopyComplete
+/Export_Console/obj/Debug/Export_Console.csproj.CoreCompileInputs.cache
+/Export_Console/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+/Export_Console/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+/Export_Console/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
