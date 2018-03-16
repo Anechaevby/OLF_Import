@@ -1,0 +1,31 @@
+﻿<Window x:Name="WaitImportForm" x:Class="OLF_Import.Forms.WaitForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OLF_Import.Forms"
+        mc:Ignorable="d"
+        Title="Warning" Height="200" Width="450" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize" WindowStyle="ToolWindow" Topmost="True">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFB0B0B0" Offset="0"/>
+            <GradientStop Color="White" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <!--AllowsTransparency="True"-->
+    <!--Background="Transparent"-->
+
+    <Grid Height="193" Width="274" Cursor="Wait">
+        <!--<Border Name="brdAbout" CornerRadius="30, 30, 30, 30" BorderThickness="2" BorderBrush="Black" Margin="1,-15,-1,53">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,2.4" StartPoint="0.5,0">
+                    <GradientStop Color="DarkGray"/>
+                    <GradientStop Color="White" Offset="0.44"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>-->
+        <Label Content="Wait..." HorizontalAlignment="Center" Margin="0,60" FontSize="22" FontWeight="Bold"/>
+    </Grid>
+</Window>

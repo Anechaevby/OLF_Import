@@ -1,0 +1,48 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OLF_Import.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="GetXmlUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://ops.epo.org/3.1/rest-services/register/publication/epodoc/EP{0}/biblio</Value>
+    </Setting>
+    <Setting Name="RetrieveXmlDir" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RetrieveXml</Value>
+    </Setting>
+    <Setting Name="Domain" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">pronovem2k8</Value>
+    </Setting>
+    <Setting Name="ComputerName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">FILE01.pronovem2k8.dom</Value>
+    </Setting>
+    <Setting Name="Login" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">offsite</Value>
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Rn74v!FF13#</Value>
+    </Setting>
+    <Setting Name="UserNameEpoService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">offsite</Value>
+    </Setting>
+    <Setting Name="PasswordEpoService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Rn74v!FF13#</Value>
+    </Setting>
+    <Setting Name="PMSMode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">demo</Value>
+    </Setting>
+    <Setting Name="Description" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">OnlineFilingPackage</Value>
+    </Setting>
+    <Setting Name="DocumentName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">BEEPVL</Value>
+    </Setting>
+    <Setting Name="CategoryId_Retrieve" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">20001</Value>
+    </Setting>
+    <Setting Name="LinkBrowser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://register.epo.org/regviewer</Value>
+    </Setting>
+    <Setting Name="NonParsablePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">c:\export_olf_non_parsable</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

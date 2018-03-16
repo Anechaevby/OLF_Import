@@ -1,0 +1,1 @@
+select * from pat_case_letter_category --where [label] like 'OLF'
