@@ -1,0 +1,12 @@
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\Export_Console.exe.config
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\Export_Console.exe
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\Export_Console.pdb
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\obj\Debug\Export_Console.csprojResolveAssemblyReference.cache
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\obj\Debug\Export_Console.exe
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\obj\Debug\Export_Console.pdb
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\NLog.dll
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\NLog.xml
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\SQL\CaseIdByUserReference.txt
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\SQL\PatCasePathExport.txt
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\SQL\PatriciaCasePath.txt
+D:\Работа\Patricia\Pronovem\OLF_Import\Export_Console\bin\Debug\SQL\ExportPatDocLog.txt
