@@ -1,0 +1,276 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="WFProcessImport.MainActivity"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:local="clr-namespace:WFProcessImport.Interfaces"
+ xmlns:local1="clr-namespace:WFProcessImport.Models"
+ xmlns:local2="clr-namespace:WFProcessImport.Activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="MainWindowModel" Type="InArgument(local:IMainWindowModel)" />
+    <x:Property Name="OperationType" Type="InArgument(x:Int32)" />
+    <x:Property Name="ConfigModel" Type="InArgument(local1:SettingsConfigModel)" />
+  </x:Members>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap2010:WorkflowViewState.IdRef>WFProcessImport.Activity1_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>WFProcessImport.Interfaces</x:String>
+      <x:String>WFProcessImport.Models</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>ICSharpCode.SharpZipLib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Configuration</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>WFProcessImport</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <local2:CodeActivityInitialize OperationType="{x:Null}" sap2010:WorkflowViewState.IdRef="CodeActivityInitialize_1">
+      <local2:CodeActivityInitialize.MainWindowModel>
+        <InArgument x:TypeArguments="local:IMainWindowModel">
+          <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+        </InArgument>
+      </local2:CodeActivityInitialize.MainWindowModel>
+    </local2:CodeActivityInitialize>
+    <If sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Condition>
+        <InArgument x:TypeArguments="x:Boolean">
+          <mca:CSharpValue x:TypeArguments="x:Boolean">Common.CommonLib.GetROByKey(MainWindowModel.SelectedRO).Equals("BE", StringComparison.CurrentCultureIgnoreCase)</mca:CSharpValue>
+        </InArgument>
+      </If.Condition>
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <If sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Condition>
+              <InArgument x:TypeArguments="x:Boolean">
+                <mca:CSharpValue x:TypeArguments="x:Boolean">OperationType == 0</mca:CSharpValue>
+              </InArgument>
+            </If.Condition>
+            <If.Then>
+              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <local2:DeleteExistsDirActivity sap2010:WorkflowViewState.IdRef="DeleteExistsDirActivity_1" />
+                <local2:RetrieveDbManagerActivity sap2010:WorkflowViewState.IdRef="RetrieveDbManagerActivity_1">
+                  <local2:RetrieveDbManagerActivity.ConfigModel>
+                    <InArgument x:TypeArguments="local1:SettingsConfigModel">
+                      <mca:CSharpValue x:TypeArguments="local1:SettingsConfigModel">ConfigModel</mca:CSharpValue>
+                    </InArgument>
+                  </local2:RetrieveDbManagerActivity.ConfigModel>
+                  <local2:RetrieveDbManagerActivity.MainWindowModel>
+                    <InArgument x:TypeArguments="local:IMainWindowModel">
+                      <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+                    </InArgument>
+                  </local2:RetrieveDbManagerActivity.MainWindowModel>
+                </local2:RetrieveDbManagerActivity>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <If sap2010:WorkflowViewState.IdRef="If_4">
+                <If.Condition>
+                  <InArgument x:TypeArguments="x:Boolean">
+                    <mca:CSharpValue x:TypeArguments="x:Boolean">OperationType == 1</mca:CSharpValue>
+                  </InArgument>
+                </If.Condition>
+                <If.Then>
+                  <local2:RetrieveXmlManagerActivity sap2010:WorkflowViewState.IdRef="RetrieveXmlManagerActivity_1">
+                    <local2:RetrieveXmlManagerActivity.ConfigModel>
+                      <InArgument x:TypeArguments="local1:SettingsConfigModel">
+                        <mca:CSharpValue x:TypeArguments="local1:SettingsConfigModel">ConfigModel</mca:CSharpValue>
+                      </InArgument>
+                    </local2:RetrieveXmlManagerActivity.ConfigModel>
+                    <local2:RetrieveXmlManagerActivity.MainWindowModel>
+                      <InArgument x:TypeArguments="local:IMainWindowModel">
+                        <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+                      </InArgument>
+                    </local2:RetrieveXmlManagerActivity.MainWindowModel>
+                  </local2:RetrieveXmlManagerActivity>
+                </If.Then>
+                <If.Else>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_7">
+                    <If sap2010:WorkflowViewState.IdRef="If_7">
+                      <If.Condition>
+                        <InArgument x:TypeArguments="x:Boolean">
+                          <mca:CSharpValue x:TypeArguments="x:Boolean">OperationType == 2</mca:CSharpValue>
+                        </InArgument>
+                      </If.Condition>
+                      <If.Then>
+                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="x:Boolean" Default="True" Name="isEmptyListPdf" />
+                          </Sequence.Variables>
+                          <local2:EpvalRequestActivity sap2010:WorkflowViewState.IdRef="EpvalRequestActivity_1">
+                            <local2:EpvalRequestActivity.ConfigModel>
+                              <InArgument x:TypeArguments="local1:SettingsConfigModel">
+                                <mca:CSharpValue x:TypeArguments="local1:SettingsConfigModel">ConfigModel</mca:CSharpValue>
+                              </InArgument>
+                            </local2:EpvalRequestActivity.ConfigModel>
+                            <local2:EpvalRequestActivity.MainWindowModel>
+                              <InArgument x:TypeArguments="local:IMainWindowModel">
+                                <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+                              </InArgument>
+                            </local2:EpvalRequestActivity.MainWindowModel>
+                          </local2:EpvalRequestActivity>
+                          <If sap2010:WorkflowViewState.IdRef="If_8">
+                            <If.Condition>
+                              <InArgument x:TypeArguments="x:Boolean">
+                                <mca:CSharpValue x:TypeArguments="x:Boolean">isEmptyListPdf == false</mca:CSharpValue>
+                              </InArgument>
+                            </If.Condition>
+                            <If.Then>
+                              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                <local2:FeeSheetActivity sap2010:WorkflowViewState.IdRef="FeeSheetActivity_1">
+                                  <local2:FeeSheetActivity.MainWindowModel>
+                                    <InArgument x:TypeArguments="local:IMainWindowModel">
+                                      <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+                                    </InArgument>
+                                  </local2:FeeSheetActivity.MainWindowModel>
+                                </local2:FeeSheetActivity>
+                                <local2:PackageDataActivity sap2010:WorkflowViewState.IdRef="PackageDataActivity_1">
+                                  <local2:PackageDataActivity.MainWindowModel>
+                                    <InArgument x:TypeArguments="local:IMainWindowModel">
+                                      <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+                                    </InArgument>
+                                  </local2:PackageDataActivity.MainWindowModel>
+                                </local2:PackageDataActivity>
+                                <local2:PackageHeaderActivity sap2010:WorkflowViewState.IdRef="PackageHeaderActivity_1">
+                                  <local2:PackageHeaderActivity.MainWindowModel>
+                                    <InArgument x:TypeArguments="local:IMainWindowModel">
+                                      <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+                                    </InArgument>
+                                  </local2:PackageHeaderActivity.MainWindowModel>
+                                </local2:PackageHeaderActivity>
+                                <local2:ZipCreatorActivity sap2010:WorkflowViewState.IdRef="ZipCreatorActivity_1" />
+                                <local2:ImportToFileManager sap2010:WorkflowViewState.IdRef="ImportToFileManager_1">
+                                  <local2:ImportToFileManager.MainWindowModel>
+                                    <InArgument x:TypeArguments="local:IMainWindowModel">
+                                      <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+                                    </InArgument>
+                                  </local2:ImportToFileManager.MainWindowModel>
+                                </local2:ImportToFileManager>
+                              </Sequence>
+                            </If.Then>
+                          </If>
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <If sap2010:WorkflowViewState.IdRef="If_6">
+                          <If.Condition>
+                            <InArgument x:TypeArguments="x:Boolean">
+                              <mca:CSharpValue x:TypeArguments="x:Boolean">OperationType == 3</mca:CSharpValue>
+                            </InArgument>
+                          </If.Condition>
+                          <If.Then>
+                            <local2:FindEpByMatterId sap2010:WorkflowViewState.IdRef="FindEpByMatterId_1">
+                              <local2:FindEpByMatterId.MainWindowModel>
+                                <InArgument x:TypeArguments="local:IMainWindowModel">
+                                  <mca:CSharpValue x:TypeArguments="local:IMainWindowModel">MainWindowModel</mca:CSharpValue>
+                                </InArgument>
+                              </local2:FindEpByMatterId.MainWindowModel>
+                            </local2:FindEpByMatterId>
+                          </If.Then>
+                        </If>
+                      </If.Else>
+                    </If>
+                  </Sequence>
+                </If.Else>
+              </If>
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Then>
+    </If>
+    <sads:DebugSymbol.Symbol>d05EOlzQoNCw0LHQvtGC0LBcUGF0cmljaWFcUHJvbm92ZW1cT0xGX0ltcG9ydFxXRlByb2Nlc3NJbXBvcnRcTWFpbkFjdGl2aXR5LnhhbWwqMQPMAQ4CAQEyBTglAgFjOQXKAQoCAQI1CzVmAgFkPAs8uQECAQNACcgBFAIBB0ELxwEQAgEIRBFEYgIBCUgPVhoCAVhZD8UBFAIBDUkRSW8CAWJKEVU0AgFZXBVcZgIBDmATazcCAU9uE8MBHgIBElIXUnICAV5NF01yAgFaaBlodAIBVGMZY3QCAVBvFcIBGgIBE3IbcmwCARR2Ga4BJAIBIrEBGcABHgIBGHhLeFECASN6G4UBOQIBRIYBG60BIAIBJLQBH7QBcAIBGbgBHb4BNwIBHYIBIYIBfAIBSn0hfXwCAUWJASGJAXcCASWNAR+rASoCASq7ASO7AX4CAR6OASGUATsCAT6VASGbAT4CATicASGiAUACATKjASGjAXUCATGkASGqAT4CASuRASeRAYIBAgE/mAEnmAGCAQIBOZ8BJ58BggECATOnASenAYIBAgEs</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="CodeActivityInitialize_1" sap:VirtualizedContainerService.HintSize="1682,22" />
+      <sap2010:ViewStateData Id="DeleteExistsDirActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="RetrieveDbManagerActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="222,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="RetrieveXmlManagerActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="EpvalRequestActivity_1" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="FeeSheetActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="PackageDataActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="PackageHeaderActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ZipCreatorActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ImportToFileManager_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="222,394">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_8" sap:VirtualizedContainerService.HintSize="464,544" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="486,730">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FindEpByMatterId_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_6" sap:VirtualizedContainerService.HintSize="464,210" />
+      <sap2010:ViewStateData Id="If_7" sap:VirtualizedContainerService.HintSize="975,880" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="997,1004">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="1222,1154" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="1469,1304" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="1491,1428">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="1682,1578" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="1704,1764">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WFProcessImport.Activity1_1" sap:VirtualizedContainerService.HintSize="1744,1844">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
+            <x:Boolean x:Key="ShouldCollapseAll">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
