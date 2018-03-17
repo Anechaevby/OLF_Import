@@ -25,7 +25,7 @@ namespace WFProcessImport.Activities
             base.Execute(context);
 
             var exePath = Directory.GetCurrentDirectory();
-            var sqlPath = Path.Combine(exePath, $"SQL\\{CommonConst.RetrieveSqlName}");
+            var sqlPath = Path.Combine(exePath, "SQL", CommonConst.RetrieveSqlName);
 
             if (File.Exists(sqlPath))
             {
@@ -130,7 +130,7 @@ namespace WFProcessImport.Activities
         private static string GetTargetFileName(RetrieveDocModel docModel)
         {
             var targetName = docModel.Doc_File_Des;
-            if (!string.IsNullOrEmpty(targetName))
+            if (!string.IsNullOrWhiteSpace(targetName))
             {
                 if (targetName.IndexOf(CommonConst.DecDomPrefix, StringComparison.CurrentCultureIgnoreCase) >= 0)
                 {
@@ -147,7 +147,7 @@ namespace WFProcessImport.Activities
 
         private static string GetFirstPartPath(SqlConnection conn)
         {
-            var sqlPath = Path.Combine(Directory.GetCurrentDirectory(), $"SQL\\{CommonConst.PatriciaCaseFirstPathSqlName}");
+            var sqlPath = Path.Combine(Directory.GetCurrentDirectory(), "SQL", CommonConst.PatriciaCaseFirstPathSqlName);
             var query = File.ReadAllText(sqlPath);
 
             using (var cmd = new SqlCommand(query, conn))

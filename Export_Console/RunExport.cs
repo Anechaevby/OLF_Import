@@ -45,28 +45,26 @@ namespace Export_Console
 
         private static void ExportItem(PMSManager pms, InfoSignItem item)
         {
-            var response = pms.Export(ApplicationStateEnum.sent, item.Id, item.UserReference);      // return Item1 => zip-file & Item2 => xml
-            if (!string.IsNullOrEmpty(response.Item1) && !string.IsNullOrEmpty(response.Item2))
+            (string fileName, string result) = pms.Export(ApplicationStateEnum.sent, item.Id, item.UserReference);      // return Item1 => zip-file & Item2 => xml
+
+            if (!string.IsNullOrWhiteSpace(fileName) && !string.IsNullOrWhiteSpace(result))
             {
                 Log.Info($">User Reference [{item.UserReference}].");
                 Log.Info($">Package Id=[{item.Id}].");
 
-                var retValue = GetResponseReturnValue(response.Item2);
-                if (!string.IsNullOrEmpty(retValue.Item1) && retValue.Item1.Equals("-1"))
+                (string errorId, string value) = GetResponseReturnValue(result);
+
+                if (!string.IsNullOrWhiteSpace(errorId) && errorId.Equals("-1"))
                 {
-                    int caseId = GetCaseIdByUserReference(item.UserReference);
-                    if (caseId > 0)
+                    if (GetCaseIdByUserReference(item.UserReference) is int caseId && caseId > 0)
                     {
-                        int docId = GetDocIdUnique();
-                        if (docId > 0)
+                        if (GetDocIdUnique() is int docId && docId > 0)
                         {
                             Log.Info($">Doc Id=[{docId}].");
 
-                            var part2Path = GetPatCasePath(caseId);
-                            if (!string.IsNullOrEmpty(part2Path))
+                            if (GetPatCasePath(caseId) is string part2Path && !string.IsNullOrWhiteSpace(part2Path))
                             {
-                                var firstPath = GetFirstPartPath();
-                                if (!string.IsNullOrEmpty(firstPath))
+                                if (GetFirstPartPath() is string firstPath && !string.IsNullOrWhiteSpace(firstPath))
                                 {
                                     var pathPatricia = Path.Combine(firstPath, part2Path);
                                     var login = ConfigurationManager.AppSettings["Login"];
@@ -80,11 +78,11 @@ namespace Export_Console
                                         {
                                             Directory.CreateDirectory(pathPatricia);
                                         }
-                                        File.Copy(response.Item1, Path.Combine(pathPatricia, Path.GetFileName(response.Item1)), true);
-                                        Log.Info($">Package [{Path.GetFileName(response.Item1)}] copy from [{Path.GetDirectoryName(response.Item1)}] to [{pathPatricia}].");
+                                        File.Copy(fileName, Path.Combine(pathPatricia, Path.GetFileName(fileName)), true);
+                                        Log.Info($">Package [{Path.GetFileName(fileName)}] copy from [{Path.GetDirectoryName(fileName)}] to [{pathPatricia}].");
                                     }
 
-                                    ExportPatDocLog(Path.GetFileName(response.Item1), caseId, docId);  // write to db
+                                    ExportPatDocLog(Path.GetFileName(fileName), caseId, docId);                             // write to db
                                     var removeAfter = ConfigurationManager.AppSettings["RemoveAfterExport"];
                                     if (removeAfter.Equals("true", StringComparison.CurrentCultureIgnoreCase))
                                     {
@@ -95,7 +93,7 @@ namespace Export_Console
                                             Log.Info(str1);
                                         }
                                     }
-                                    Log.Info(retValue.Item2 + ".");
+                                    Log.Info(value + ".");
                                 }
                             }
                         }
@@ -103,21 +101,21 @@ namespace Export_Console
                     else
                     {
                         string str1 = $">User Reference [{item.UserReference}] not found in db.";
-                        string str2 = $">Retrieve Package [{Path.GetFileName(response.Item1)}]";
+                        string str2 = $">Retrieve Package [{Path.GetFileName(fileName)}]";
                         Log.Info(str1);
                         Log.Info(str2);
                     }
                 }
                 else
                 {
-                    Log.Info($">PMS-service export crash [{retValue.Item2}].");
+                    Log.Info($">PMS-service export crash [{value}].");
                 }
             }
         }
 
         private void ParseRetrieve(string xml, Func<int, string> callbackAgainResponse)
         {
-            if (string.IsNullOrEmpty(xml)) { return; }
+            if (string.IsNullOrWhiteSpace(xml)) { return; }
 
             var doc = new XmlDocument();
             doc.LoadXml(xml);
@@ -128,7 +126,7 @@ namespace Export_Console
                 var model = new InfoSignItem { IsChecked = false };
 
                 var id = item.Attributes?["application_ID"].Value;
-                if (!string.IsNullOrEmpty(id) && id.All(char.IsDigit))
+                if (!string.IsNullOrWhiteSpace(id) && id.All(char.IsDigit))
                 {
                     model.Id = int.Parse(id);
                     model.State = item.Attributes?["state"].Value;
@@ -136,7 +134,7 @@ namespace Export_Console
                     model.UserReference = item.Attributes?["user_reference"].Value;
 
                     var againXml = callbackAgainResponse?.Invoke(model.Id);
-                    if (!string.IsNullOrEmpty(againXml))
+                    if (!string.IsNullOrWhiteSpace(againXml))
                     {
                         var docAgain = new XmlDocument();
                         docAgain.LoadXml(againXml);
@@ -149,7 +147,6 @@ namespace Export_Console
                 }
                 InfoSignExistsCollection.Add(model);
             }
-
             InfoSignExistsCollection = InfoSignExistsCollection.OrderBy(x => x.Id).ToList();
         }
 
@@ -189,7 +186,7 @@ namespace Export_Console
         private static void ExportPatDocLog(string zipFileName, int caseId, int docId)
         {
             var exePath = Directory.GetCurrentDirectory();
-            var sqlPath = Path.Combine(exePath, $"SQL\\{CommonConst.ExportPatDocLog}");
+            var sqlPath = Path.Combine(exePath, "SQL", CommonConst.ExportPatDocLog);
 
             if (File.Exists(sqlPath))
             {
@@ -227,7 +224,7 @@ namespace Export_Console
         private static string GetPatCasePath(int caseId)
         {
             var exePath = Directory.GetCurrentDirectory();
-            var sqlPath = Path.Combine(exePath, $"SQL\\{CommonConst.PatCasePatchExport}");
+            var sqlPath = Path.Combine(exePath, "SQL", CommonConst.PatCasePatchExport);
 
             if (File.Exists(sqlPath))
             {
@@ -267,7 +264,7 @@ namespace Export_Console
 
         private static string GetFirstPartPath()
         {
-            var sqlPath = Path.Combine(Directory.GetCurrentDirectory(), $"SQL\\{CommonConst.PatriciaCaseFirstPathSqlName}");
+            var sqlPath = Path.Combine(Directory.GetCurrentDirectory(), "SQL", CommonConst.PatriciaCaseFirstPathSqlName);
             if (File.Exists(sqlPath))
             {
                 var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PatlabConnection"].ConnectionString);
@@ -302,7 +299,7 @@ namespace Export_Console
         private static int GetCaseIdByUserReference(string userRef)
         {
             var exePath = Directory.GetCurrentDirectory();
-            var sqlPath = Path.Combine(exePath, $"SQL\\{CommonConst.CaseIdByUserRef}");
+            var sqlPath = Path.Combine(exePath, "SQL", CommonConst.CaseIdByUserRef);
 
             if (File.Exists(sqlPath))
             {
@@ -339,7 +336,7 @@ namespace Export_Console
 
         private static bool RemoveSuccessfull(string pmsResult)
         {
-            if (!string.IsNullOrEmpty(pmsResult))
+            if (!string.IsNullOrWhiteSpace(pmsResult))
             {
                 var doc = new XmlDocument();
                 doc.LoadXml(pmsResult);
@@ -354,7 +351,7 @@ namespace Export_Console
             return false;
         }
 
-        private static Tuple<string, string> GetResponseReturnValue(string response)
+        private static (string, string) GetResponseReturnValue(string response)
         {
             var doc = new XmlDocument();
             doc.LoadXml(response);
@@ -364,9 +361,9 @@ namespace Export_Console
             {
                 var value = items.Item(0)?.InnerText;
                 var errorId = items.Item(0)?.Attributes?["error_ID"].Value;
-                return new Tuple<string, string>(errorId ?? string.Empty, value);
+                return (errorId ?? string.Empty, value);
             }
-            return new Tuple<string, string>(string.Empty, string.Empty);
+            return (string.Empty, string.Empty);
         }
 
     }

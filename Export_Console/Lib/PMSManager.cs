@@ -33,7 +33,7 @@ namespace Export_Console.Lib
             return result;
         }
 
-        public Tuple<string, string> Export(ApplicationStateEnum state, int appId, string userReference)
+        public (string, string) Export(ApplicationStateEnum state, int appId, string userReference)
         {
             var pmsInput = new PmsInput { UserName = UserName, Password = Password, Mode = GetPmsMode(), Language = LanguageTypeEnum.English };
 
@@ -68,7 +68,7 @@ namespace Export_Console.Lib
                 }
 
                 string fileName = Utils.SaveAttachmentToWorkDir(responseAtt, tempFolder);
-                return new Tuple<string, string>(fileName, result);
+                return (fileName, result);
             }
             finally
             {
