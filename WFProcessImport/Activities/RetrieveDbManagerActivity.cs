@@ -65,14 +65,9 @@ namespace WFProcessImport.Activities
                             var password = configModel.PasswordNetwork;
                             var computerName = configModel.ComputerName;
 
-                            var accessShareFolder = NetworkShareAccesser.Access(computerName, domain, login, password);
-                            try
+                            using (var accessShareFolder = NetworkShareAccesser.Access(computerName, domain, login, password))
                             {
                                 CopyFileToTargetFolder(lstRetrieve, patriciaCasePath, targetPath);
-                            }
-                            finally
-                            {
-                                accessShareFolder.Dispose();
                             }
                         }
                         else

@@ -353,7 +353,7 @@ namespace WFProcessImport.Activities
             {
                 conn.Open();
                 var exePath = Directory.GetCurrentDirectory();
-                var sqlPath = Path.Combine(exePath, $"SQL\\{CommonConst.RetrieveSqlName}");
+                var sqlPath = Path.Combine(exePath, "SQL", CommonConst.RetrieveSqlName);
 
                 List<RetrieveDocModel> lstRetrieve = null;
                 string query = File.ReadAllText(sqlPath);

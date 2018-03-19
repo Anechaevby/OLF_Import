@@ -52,7 +52,7 @@ namespace OLF_Import
 
                 if (GetMainModel() is MainFormViewModel model)
                 {
-                    model.IsEnabledSendToOlf = ApplicantAddressCollection != null && ApplicantAddressCollection.Any();
+                    model.IsEnabledSendToOlf = ApplicantAddressCollection?.Any() ?? false;
                 }
             }
         }
@@ -248,7 +248,10 @@ namespace OLF_Import
             }
         }
 
-        private UnhandledExceptionAction OnUnhandledException(WorkflowApplicationUnhandledExceptionEventArgs workflowApplicationUnhandledExceptionEventArgs)
+        private UnhandledExceptionAction OnUnhandledException
+            (
+            WorkflowApplicationUnhandledExceptionEventArgs workflowApplicationUnhandledExceptionEventArgs
+            )
         {
             Log.Error(workflowApplicationUnhandledExceptionEventArgs.UnhandledException);
             this.Dispatcher.BeginInvoke(new Action<Exception>(exc =>

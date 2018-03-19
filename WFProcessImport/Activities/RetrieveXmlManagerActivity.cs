@@ -38,6 +38,7 @@ namespace WFProcessImport.Activities
                 var url = string.Format(configModel.GetXmlUrl, epNumber);
 
                 var webClient = new WebClient { Credentials = new NetworkCredential(configModel.Login, configModel.Password) };
+
                 const string _userAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)";
                 webClient.Headers.Add(HttpRequestHeader.UserAgent, _userAgent);
                 textFromFile = webClient.DownloadString(url);
@@ -127,23 +128,22 @@ namespace WFProcessImport.Activities
                 if (addressAll.Length > 0)
                 {
                     rtModel.AddressRetrieve = addressAll.ToString();
-                    if (!string.IsNullOrEmpty(rtModel.FirstName) || !string.IsNullOrEmpty(rtModel.LastName))
+                    if (!string.IsNullOrWhiteSpace(rtModel.FirstName) || !string.IsNullOrWhiteSpace(rtModel.LastName))
                     {
                         rtModel.EntityFormLegal = false;
-                        rtModel.EntityFormNatural = true;
                     }
                     else
                     {
                         rtModel.EntityFormLegal = true;
-                        rtModel.EntityFormNatural = false;
                     }
+                    rtModel.EntityFormNatural = rtModel.EntityFormLegal == false;
                     resultCollection.Add(rtModel);
                 }
                 rbGroupIndex++;
             }
 
             var dtgaz = item.Attributes?["change-gazette-num"].Value;
-            if (!string.IsNullOrEmpty(dtgaz))
+            if (!string.IsNullOrWhiteSpace(dtgaz))
             {
                 sb.AppendLine(new string('-', 40));
                 sb.AppendLine($"[{dtgaz}]");

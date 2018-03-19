@@ -36,6 +36,7 @@ namespace WFProcessImport.Activities
                         {
                             cmd.Parameters.Clear();
                             cmd.Parameters.AddWithValue("@Case_Id", caseId);
+
                             using (var dt = new DataTable {TableName = "TableEpNumber"})
                             {
                                 dt.Load(cmd.ExecuteReader());
@@ -43,7 +44,7 @@ namespace WFProcessImport.Activities
                                 {
                                     string result = dt.Rows[0][0] as string;
 
-                                    if (!string.IsNullOrEmpty(result))
+                                    if (!string.IsNullOrWhiteSpace(result))
                                     {
                                         var ext = context.GetExtension<IFindEpByMatterId>();
                                         ext.FindEpByMatterId(result);
