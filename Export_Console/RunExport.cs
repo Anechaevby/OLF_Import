@@ -200,14 +200,21 @@ namespace Export_Console
                         cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@DocId", docId);
                         cmd.Parameters.AddWithValue("@Case_id", caseId);
-                        cmd.Parameters.AddWithValue("@LogDate", DateTime.Now.Date);
+
+                        var prmLogDate = new SqlParameter { ParameterName = "@LogDate", SqlDbType = SqlDbType.DateTime, Value = DateTime.Now.Date };
+                        cmd.Parameters.Add(prmLogDate);
+
                         cmd.Parameters.AddWithValue("@DocName", ConfigurationManager.AppSettings["DocumentName"]);
                         cmd.Parameters.AddWithValue("@DocFileName", zipFileName);
                         cmd.Parameters.AddWithValue("@Description", ConfigurationManager.AppSettings["Description"]);
-                        cmd.Parameters.AddWithValue("@DateSent", DateTime.Now.Date);
-                        cmd.Parameters.AddWithValue("@DOC_REC_DATE", DateTime.Now.Date);
-                        cmd.Parameters.AddWithValue("@Category_id", ConfigurationManager.AppSettings["Category"]);
 
+                        var prmDateSent = new SqlParameter { ParameterName = "@DateSent", SqlDbType = SqlDbType.DateTime, Value = DateTime.Now.Date };
+                        cmd.Parameters.Add(prmDateSent);
+
+                        var prmDocRec = new SqlParameter { ParameterName = "@DOC_REC_DATE", SqlDbType = SqlDbType.DateTime, Value = DateTime.Now.Date };
+                        cmd.Parameters.Add(prmDocRec);
+
+                        cmd.Parameters.AddWithValue("@Category_id", ConfigurationManager.AppSettings["Category"]);
                         cmd.ExecuteNonQuery();
                     }
                 }

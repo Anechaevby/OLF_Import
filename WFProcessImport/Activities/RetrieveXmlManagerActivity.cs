@@ -75,7 +75,7 @@ namespace WFProcessImport.Activities
             }
         }
 
-        private string GetToken(string url, string consumerKey, string consumerSecretKey)
+        private static string GetToken(string url, string consumerKey, string consumerSecretKey)
         {
             using (var httpClient = new HttpClient())
             {
