@@ -11,5 +11,8 @@
         public string GetXmlUrl { get; set; }
         public int CategoryId { get; set; }
         public bool UseAuthorizationShareFolder { get; set; }
+        public string ConsumerKey { get; set; }
+        public string ConsumerSecretKey { get; set; }
+        public string UrlAccessToken { get; set; }
     }
 }

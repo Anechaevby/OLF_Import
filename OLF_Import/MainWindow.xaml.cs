@@ -136,7 +136,7 @@ namespace OLF_Import
 
         private void BtnRetrieveApplicant_OnClick(object sender, RoutedEventArgs e)
         {
-            if (GetMainModel() is MainFormViewModel  model)
+            if (GetMainModel() is MainFormViewModel model)
             {
                 var errors = model.Error;
                 if (string.IsNullOrEmpty(errors))
@@ -155,7 +155,10 @@ namespace OLF_Import
                                 Login = Settings.Default.Login,
                                 Password = Settings.Default.Password,
                                 CategoryId = Settings.Default.CategoryId_Retrieve,
-                                GetXmlUrl = Settings.Default.GetXmlUrl
+                                GetXmlUrl = Settings.Default.GetXmlUrl,
+                                ConsumerKey = Settings.Default.ConsumerKey,
+                                ConsumerSecretKey = Settings.Default.ConsumerSecretKey,
+                                UrlAccessToken = Settings.Default.UrlAccessToken
                             }
                         }
                     };

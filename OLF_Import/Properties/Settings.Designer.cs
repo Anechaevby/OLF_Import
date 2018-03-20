@@ -25,7 +25,7 @@ namespace OLF_Import.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://ops.epo.org/3.2/rest-services/register/publication/epodoc/EP{0}/biblio")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://ops.epo.org/3.2/rest-services/register/publication/epodoc/EP{0}/biblio")]
         public string GetXmlUrl {
             get {
                 return ((string)(this["GetXmlUrl"]));
@@ -146,6 +146,33 @@ namespace OLF_Import.Properties {
         public string NonParsablePath {
             get {
                 return ((string)(this["NonParsablePath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("IyeCtOtXvdUlyKhlqJUy8gJlLG6OCRPT")]
+        public string ConsumerKey {
+            get {
+                return ((string)(this["ConsumerKey"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("x4Ajica0wkwyDwbd")]
+        public string ConsumerSecretKey {
+            get {
+                return ((string)(this["ConsumerSecretKey"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://ops.epo.org/3.2/auth/accesstoken")]
+        public string UrlAccessToken {
+            get {
+                return ((string)(this["UrlAccessToken"]));
             }
         }
     }

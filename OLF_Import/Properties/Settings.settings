@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="GetXmlUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://ops.epo.org/3.2/rest-services/register/publication/epodoc/EP{0}/biblio</Value>
+      <Value Profile="(Default)">https://ops.epo.org/3.2/rest-services/register/publication/epodoc/EP{0}/biblio</Value>
     </Setting>
     <Setting Name="RetrieveXmlDir" Type="System.String" Scope="Application">
       <Value Profile="(Default)">RetrieveXml</Value>
@@ -43,6 +43,15 @@
     </Setting>
     <Setting Name="NonParsablePath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">c:\export_olf_non_parsable</Value>
+    </Setting>
+    <Setting Name="ConsumerKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">IyeCtOtXvdUlyKhlqJUy8gJlLG6OCRPT</Value>
+    </Setting>
+    <Setting Name="ConsumerSecretKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">x4Ajica0wkwyDwbd</Value>
+    </Setting>
+    <Setting Name="UrlAccessToken" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://ops.epo.org/3.2/auth/accesstoken</Value>
     </Setting>
   </Settings>
 </SettingsFile>
