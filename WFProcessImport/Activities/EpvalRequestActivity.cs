@@ -355,8 +355,8 @@ namespace WFProcessImport.Activities
                 var exePath = Directory.GetCurrentDirectory();
                 var sqlPath = Path.Combine(exePath, "SQL", CommonConst.RetrieveSqlName);
 
-                List<RetrieveDocModel> lstRetrieve = null;
                 string query = File.ReadAllText(sqlPath);
+                List<RetrieveDocModel> lstRetrieve = null;
                 query = query.Replace("@MatterId", model.MatterId);
 
                 using (var cmd = new SqlCommand(query, conn))

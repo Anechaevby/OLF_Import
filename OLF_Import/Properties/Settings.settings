@@ -53,5 +53,8 @@
     <Setting Name="UrlAccessToken" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://ops.epo.org/3.2/auth/accesstoken</Value>
     </Setting>
+    <Setting Name="TestUserSettings" Type="System.String" Scope="User">
+      <Value Profile="(Default)">zero</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

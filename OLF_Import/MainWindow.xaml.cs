@@ -311,35 +311,34 @@ namespace OLF_Import
 
         private void BtnExport_OnClick(object sender, RoutedEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
-            var infoFrm = new InfoExportForm
+            if (GetMainModel() is MainFormViewModel model)
             {
-                Left = this.Left - 50,
-                Top = this.Top + 60
-            };
+                Mouse.OverrideCursor = Cursors.Wait;
+                var infoFrm = new InfoExportForm
+                {
+                    Left = this.Left - 50,
+                    Top = this.Top + 60
+                };
 
-            var model = GetMainModel();
-            if (model != null)
-            {
                 Log.Info("-Get Information from PMS-service to start =>");
                 Log.Info($">Retrieve documents: [{model.RepresentationDoc}].");
                 WriteInfoToLog(model);
-            }
 
-            try
-            {
-                var pms = new PMSManager();
-                string response = pms.Information(ApplicationStateEnum.sent);
-                infoFrm.ParseRetrieve(response, id => pms.Information(ApplicationStateEnum.sent, id));
+                try
+                {
+                    var pms = new PMSManager();
+                    string response = pms.Information(ApplicationStateEnum.sent);
+                    infoFrm.ParseRetrieve(response, id => pms.Information(ApplicationStateEnum.sent, id));
 
-                Mouse.OverrideCursor = null;
-                infoFrm.ShowDialog();
-            }
-            catch (Exception exc)
-            {
-                if (Mouse.OverrideCursor != null) { Mouse.OverrideCursor = null; }
-                Log.Error(exc);
-                CustomMessageBox.ShowErrorBox(exc.Message, this);
+                    Mouse.OverrideCursor = null;
+                    infoFrm.ShowDialog();
+                }
+                catch (Exception exc)
+                {
+                    if (Mouse.OverrideCursor != null) { Mouse.OverrideCursor = null; }
+                    Log.Error(exc);
+                    CustomMessageBox.ShowErrorBox(exc.Message, this);
+                }
             }
         }
 

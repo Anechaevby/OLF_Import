@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 using WFProcessImport.Common;
 using WFProcessImport.Interfaces;
 using WFProcessImport.Models;
-// ReSharper disable All
+
 
 namespace WFProcessImport.Activities
 {
@@ -28,17 +28,18 @@ namespace WFProcessImport.Activities
         protected override void Execute(CodeActivityContext context)
         {
             base.Execute(context);
-            var model = this.MainWindowModel.Get<IMainWindowModel>(context);
 
+            var model = this.MainWindowModel.Get<IMainWindowModel>(context);
             string epNumber = model.EpNumber;
+
             var tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var targetPath = Path.Combine(tempFolder, CommonConst.ApplicationName, CommonConst.RetrieveXmlDirName);
 
-            if (Directory.Exists(targetPath) == false) { Directory.CreateDirectory(targetPath); }
+            if (!Directory.Exists(targetPath)) { Directory.CreateDirectory(targetPath); }
             var fullPath = Path.Combine(targetPath, epNumber + "_" + CommonLib.GetPostfixFileXml() + ".xml");
 
             string textFromFile = string.Empty;
-            if (File.Exists(fullPath) == false)
+            if (!File.Exists(fullPath))
             {
                 var configModel = this.ConfigModel.Get<SettingsConfigModel>(context);
                 var url = string.Format(configModel.GetXmlUrl, epNumber);
@@ -107,7 +108,7 @@ namespace WFProcessImport.Activities
         }
 
 
-        private static void ParseRetrieveXml(CodeActivityContext context, string textReceive, IMainWindowModel model)
+        private static void ParseRetrieveXml(ActivityContext context, string textReceive, IMainWindowModel model)
         {
             var doc = new XmlDocument();
             doc.LoadXml(textReceive);

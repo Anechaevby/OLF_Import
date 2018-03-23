@@ -175,5 +175,17 @@ namespace OLF_Import.Properties {
                 return ((string)(this["UrlAccessToken"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("zero")]
+        public string TestUserSettings {
+            get {
+                return ((string)(this["TestUserSettings"]));
+            }
+            set {
+                this["TestUserSettings"] = value;
+            }
+        }
     }
 }

@@ -157,7 +157,7 @@ namespace OLF_Import.Forms
                     Log.Info($">User Reference [{item.UserReference}].");
                     (string errorId, string value) = GetReturnValue(resultXML);
 
-                    if (!string.IsNullOrWhiteSpace(errorId) && value.Equals("-1"))
+                    if (!string.IsNullOrWhiteSpace(errorId) && errorId.Equals("-1"))
                     {
                         if (GetCaseIdByUserReference(item.UserReference) is int caseId && caseId > 0)
                         {
@@ -274,7 +274,7 @@ namespace OLF_Import.Forms
         private void ExportPatDocLog(string zipFileName, string uniqFileName, int caseId, int docId, InfoSignItem item)
         {
             var exePath = Directory.GetCurrentDirectory();
-            var sqlPath = Path.Combine(exePath, $"SQL\\{CommonConst.ExportPatDocLog}");
+            var sqlPath = Path.Combine(exePath, "SQL", CommonConst.ExportPatDocLog);
 
             if (File.Exists(sqlPath))
             {
@@ -305,14 +305,36 @@ namespace OLF_Import.Forms
 
                         cmd.Parameters.AddWithValue("@DocId", docId);
                         cmd.Parameters.AddWithValue("@Case_id", caseId);
-                        cmd.Parameters.AddWithValue("@LogDate", DateTime.Now.Date);
+
+                        var prmLogDate = new SqlParameter
+                        {
+                            Value = DateTime.Now.Date,
+                            ParameterName = "@LogDate",
+                            SqlDbType = SqlDbType.DateTime
+                        };
+                        cmd.Parameters.Add(prmLogDate);
+
                         cmd.Parameters.AddWithValue("@DocName", zipFileName);
                         cmd.Parameters.AddWithValue("@DocFileName", uniqFileName);
                         cmd.Parameters.AddWithValue("@Description", Settings.Default.Description);
-                        cmd.Parameters.AddWithValue("@DateSent", dtSent);
-                        cmd.Parameters.AddWithValue("@DOC_REC_DATE", DateTime.Now.Date);
-                        cmd.Parameters.AddWithValue("@Category_id", Settings.Default.CategoryId_Retrieve);
 
+                        var prmDataSent = new SqlParameter
+                        {
+                            Value = dtSent,
+                            ParameterName = "@DateSent",
+                            SqlDbType = SqlDbType.DateTime
+                        };
+                        cmd.Parameters.Add(prmDataSent);
+
+                        var prmDocRec = new SqlParameter
+                        {
+                            Value = DateTime.Now.Date,
+                            SqlDbType = SqlDbType.DateTime,
+                            ParameterName = "@DOC_REC_DATE"
+                        };
+                        cmd.Parameters.Add(prmDocRec);
+
+                        cmd.Parameters.AddWithValue("@Category_id", Settings.Default.CategoryId_Retrieve);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -329,7 +351,7 @@ namespace OLF_Import.Forms
         private static string GetPatCasePath(int caseId)
         {
             var exePath = Directory.GetCurrentDirectory();
-            var sqlPath = Path.Combine(exePath, $"SQL\\{CommonConst.PatCasePatchExport}");
+            var sqlPath = Path.Combine(exePath, "SQL", CommonConst.PatCasePatchExport);
 
             if (File.Exists(sqlPath))
             {
@@ -418,8 +440,7 @@ namespace OLF_Import.Forms
         private static int GetCaseIdByUserReference(string userRef)
         {
             var exePath = Directory.GetCurrentDirectory();
-            var sqlPath = Path.Combine(exePath, $"SQL\\{CommonConst.CaseIdByUserRef}");
-
+            var sqlPath = Path.Combine(exePath, "SQL", CommonConst.CaseIdByUserRef);
             if (File.Exists(sqlPath))
             {
                 var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PatlabConnection"].ConnectionString);
@@ -455,7 +476,7 @@ namespace OLF_Import.Forms
 
         private static string GetFirstPartPath()
         {
-            var sqlPath = Path.Combine(Directory.GetCurrentDirectory(), $"SQL\\{CommonConst.PatriciaCaseFirstPathSqlName}");
+            var sqlPath = Path.Combine(Directory.GetCurrentDirectory(), "SQL", CommonConst.PatriciaCaseFirstPathSqlName);
             if (File.Exists(sqlPath))
             {
                 var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PatlabConnection"].ConnectionString);

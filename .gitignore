@@ -331,3 +331,4 @@ dkms.conf
 /packages/Newtonsoft.Json.8.0.3/tools/install.ps1
 /WFProcessImport/bin/Debug/Newtonsoft.Json.xml
 /WFProcessImport/bin/Release/Newtonsoft.Json.xml
+/Export_Console/obj/Release/Export_Console.csprojResolveAssemblyReference.cache
