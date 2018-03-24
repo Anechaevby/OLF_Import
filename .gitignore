@@ -332,3 +332,7 @@ dkms.conf
 /WFProcessImport/bin/Debug/Newtonsoft.Json.xml
 /WFProcessImport/bin/Release/Newtonsoft.Json.xml
 /Export_Console/obj/Release/Export_Console.csprojResolveAssemblyReference.cache
+/UnitTestProjectOLF/.vs/UnitTestProjectOLF/v15/Server/*
+/UnitTestProjectOLF/bin/Debug/*
+/UnitTestProjectOLF/obj/Debug/*
+/UnitTestProjectOLF/packages/*
