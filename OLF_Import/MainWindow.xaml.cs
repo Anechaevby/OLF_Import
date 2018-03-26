@@ -314,11 +314,7 @@ namespace OLF_Import
             if (GetMainModel() is MainFormViewModel model)
             {
                 Mouse.OverrideCursor = Cursors.Wait;
-                var infoFrm = new InfoExportForm
-                {
-                    Left = this.Left - 50,
-                    Top = this.Top + 60
-                };
+                var infoFrm = new InfoExportForm { Left = this.Left - 50, Top = this.Top + 60 };
 
                 Log.Info("-Get Information from PMS-service to start =>");
                 Log.Info($">Retrieve documents: [{model.RepresentationDoc}].");

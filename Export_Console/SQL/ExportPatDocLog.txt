@@ -22,13 +22,16 @@ VALUES
     @Case_id, -- CASE_ID - int  
     1, -- DOC_LOG_ORIGIN - int
     N'SU', -- LOGIN_ID - nvarchar
-    @LogDate, -- LOG_DATE - datetime
+    --@LogDate, -- LOG_DATE - datetime
+	GETDATE(),
     99, -- DOC_TYPE - int
     @DocName, -- DOC_NAME - nvarchar
     @DocFileName, -- DOC_FILE_NAME - nvarchar
     @Description, -- DOC_FILE_DES - nvarchar
-    @DateSent, -- DOC_SENT_DATE - datetime
-    @DOC_REC_DATE, -- DOC_REC_DATE - datetime
+    --@DateSent, -- DOC_SENT_DATE - datetime
+	GETDATE(),
+    --@DOC_REC_DATE, -- DOC_REC_DATE - datetime
+	GETDATE(),
     @Category_id, -- CATEGORY_ID - int
     0, -- DOC_EDITABLE - int    
     0, -- PUBLISH_WEB - int    

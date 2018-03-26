@@ -306,33 +306,33 @@ namespace OLF_Import.Forms
                         cmd.Parameters.AddWithValue("@DocId", docId);
                         cmd.Parameters.AddWithValue("@Case_id", caseId);
 
-                        var prmLogDate = new SqlParameter
-                        {
-                            Value = DateTime.Now.Date,
-                            ParameterName = "@LogDate",
-                            SqlDbType = SqlDbType.DateTime
-                        };
-                        cmd.Parameters.Add(prmLogDate);
+                        //var prmLogDate = new SqlParameter
+                        //{
+                        //    Value = DateTime.Now.Date,
+                        //    ParameterName = "@LogDate",
+                        //    SqlDbType = SqlDbType.DateTime
+                        //};
+                        //cmd.Parameters.Add(prmLogDate);
 
                         cmd.Parameters.AddWithValue("@DocName", zipFileName);
                         cmd.Parameters.AddWithValue("@DocFileName", uniqFileName);
                         cmd.Parameters.AddWithValue("@Description", Settings.Default.Description);
 
-                        var prmDataSent = new SqlParameter
-                        {
-                            Value = dtSent,
-                            ParameterName = "@DateSent",
-                            SqlDbType = SqlDbType.DateTime
-                        };
-                        cmd.Parameters.Add(prmDataSent);
+                        //var prmDataSent = new SqlParameter
+                        //{
+                        //    Value = dtSent,
+                        //    ParameterName = "@DateSent",
+                        //    SqlDbType = SqlDbType.DateTime
+                        //};
+                        //cmd.Parameters.Add(prmDataSent);
 
-                        var prmDocRec = new SqlParameter
-                        {
-                            Value = DateTime.Now.Date,
-                            SqlDbType = SqlDbType.DateTime,
-                            ParameterName = "@DOC_REC_DATE"
-                        };
-                        cmd.Parameters.Add(prmDocRec);
+                        //var prmDocRec = new SqlParameter
+                        //{
+                        //    Value = DateTime.Now.Date,
+                        //    SqlDbType = SqlDbType.DateTime,
+                        //    ParameterName = "@DOC_REC_DATE"
+                        //};
+                        //cmd.Parameters.Add(prmDocRec);
 
                         cmd.Parameters.AddWithValue("@Category_id", Settings.Default.CategoryId_Retrieve);
                         cmd.ExecuteNonQuery();

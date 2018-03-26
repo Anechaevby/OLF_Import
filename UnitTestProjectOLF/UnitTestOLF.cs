@@ -36,27 +36,27 @@ namespace UnitTestProjectOLF
                     //    ParameterName = "@LogDate",
                     //    SqlDbType = SqlDbType.DateTime
                     //};
-                    cmd.Parameters.AddWithValue("@LogDate", DateTime.Now.Date);
+                    cmd.Parameters.AddWithValue("@LogDate", DateTime.Now.Date.AddDays(-15));
 
                     cmd.Parameters.AddWithValue("@DocName", "zipFileName");
                     cmd.Parameters.AddWithValue("@DocFileName", "uniqFileName");
                     cmd.Parameters.AddWithValue("@Description", "Description");
 
-                    var prmDataSent = new SqlParameter
-                    {
-                        Value = dtSent,
-                        ParameterName = "@DateSent",
-                        SqlDbType = SqlDbType.DateTime
-                    };
-                    cmd.Parameters.Add(prmDataSent);
+                    //var prmDataSent = new SqlParameter
+                    //{
+                    //    Value = dtSent,
+                    //    ParameterName = "@DateSent",
+                    //    SqlDbType = SqlDbType.DateTime
+                    //};
+                    //cmd.Parameters.Add(prmDataSent);
 
-                    var prmDocRec = new SqlParameter
-                    {
-                        Value = DateTime.Now.Date,
-                        SqlDbType = SqlDbType.DateTime,
-                        ParameterName = "@DOC_REC_DATE"
-                    };
-                    cmd.Parameters.Add(prmDocRec);
+                    //var prmDocRec = new SqlParameter
+                    //{
+                    //    Value = DateTime.Now.Date,
+                    //    SqlDbType = SqlDbType.DateTime,
+                    //    ParameterName = "@DOC_REC_DATE"
+                    //};
+                    //cmd.Parameters.Add(prmDocRec);
 
                     cmd.Parameters.AddWithValue("@Category_id", 999);
                     cmd.ExecuteNonQuery();
