@@ -39,13 +39,15 @@ namespace WFProcessImport.Lib
             return list;
         }
 
-        public static DateTime ConvertStrToDate(string srcValue)
+        public static DateTime ConvertStrToDate(string srcValue, string dateFormat)
         {
-            if (!string.IsNullOrWhiteSpace(srcValue))
-                foreach (CultureInfo cultureInfo in CultureInfo.GetCultures(CultureTypes.AllCultures))
-                {
-                    if (DateTime.TryParse(srcValue, cultureInfo, DateTimeStyles.None, out var dt)) { return dt; }
-                }
+          // state="sent" last_saved_date="20.08.2007 16:22:15"
+
+            if (!string.IsNullOrEmpty(srcValue)
+                && DateTime.TryParseExact(srcValue, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateResult))
+            {
+                return dateResult;
+            }
             return DateTime.MinValue;
         }
     }

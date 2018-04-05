@@ -172,7 +172,9 @@ namespace OLF_Import.Model
 
             // TODO: remove later!
 
-            //MatterId = "BV17033BEEP";
+            MatterId = "BV17033BEEP";
+            IsEnabledApplicantDetails = true;
+
             EpNumber = string.Empty;
         }
 

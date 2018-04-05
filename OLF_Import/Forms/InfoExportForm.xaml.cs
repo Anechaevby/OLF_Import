@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -278,18 +279,29 @@ namespace OLF_Import.Forms
 
             if (File.Exists(sqlPath))
             {
-                string againXml = _callBackAgainResponse?.Invoke(item.Id);
-                if (!string.IsNullOrEmpty(againXml))
+                WaitCallback wk = state =>
                 {
-                    var docAgain = new XmlDocument();
-                    docAgain.LoadXml(againXml);
-                    XmlNodeList itemAgain = docAgain.GetElementsByTagName("application");
-
-                    if (itemAgain.Count > 0)
+                    string againXml = _callBackAgainResponse?.Invoke(item.Id);
+                    if (!string.IsNullOrEmpty(againXml))
                     {
-                        item.LastSavedData = itemAgain[0].Attributes?["last_saved_date"]?.Value ?? string.Empty;
+                        var docAgain = new XmlDocument();
+                        docAgain.LoadXml(againXml);
+                        XmlNodeList itemAgain = docAgain.GetElementsByTagName("application");
+
+                        if (itemAgain.Count > 0)
+                        {
+                            item.LastSavedData = itemAgain[0].Attributes?["last_saved_date"]?.Value ?? string.Empty;
+                        }
                     }
-                }
+                };
+
+                var ar = new AutoResetEvent(false);
+                wk.BeginInvoke(null, state =>
+                {
+                    var wkk = (WaitCallback) state.AsyncState;
+                    wkk.EndInvoke(state);
+                    ar.Set();
+                }, wk);
 
                 var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PatlabConnection"].ConnectionString);
                 conn.Open();
@@ -299,51 +311,31 @@ namespace OLF_Import.Forms
                     using (var cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.Clear();
-                        var dtSent = string.IsNullOrWhiteSpace(item.LastSavedData) 
-                            ? DateTime.Now.Date
-                            : DataTableHelper.ConvertStrToDate(item.LastSavedData);
-
                         cmd.Parameters.AddWithValue("@DocId", docId);
                         cmd.Parameters.AddWithValue("@Case_id", caseId);
-
-                        //var prmLogDate = new SqlParameter
-                        //{
-                        //    Value = DateTime.Now.Date,
-                        //    ParameterName = "@LogDate",
-                        //    SqlDbType = SqlDbType.DateTime
-                        //};
-                        //cmd.Parameters.Add(prmLogDate);
-
+                        cmd.Parameters.AddWithValue("@LogDate", DateTime.Now.Date);
                         cmd.Parameters.AddWithValue("@DocName", zipFileName);
                         cmd.Parameters.AddWithValue("@DocFileName", uniqFileName);
                         cmd.Parameters.AddWithValue("@Description", Settings.Default.Description);
 
-                        //var prmDataSent = new SqlParameter
-                        //{
-                        //    Value = dtSent,
-                        //    ParameterName = "@DateSent",
-                        //    SqlDbType = SqlDbType.DateTime
-                        //};
-                        //cmd.Parameters.Add(prmDataSent);
-
-                        //var prmDocRec = new SqlParameter
-                        //{
-                        //    Value = DateTime.Now.Date,
-                        //    SqlDbType = SqlDbType.DateTime,
-                        //    ParameterName = "@DOC_REC_DATE"
-                        //};
-                        //cmd.Parameters.Add(prmDocRec);
-
+                        var dtRecDate = string.IsNullOrWhiteSpace(item.LastSavedData)
+                            ? DateTime.Now.Date
+                            : DataTableHelper.ConvertStrToDate(item.LastSavedData, Settings.Default.DateFormat);
+                        cmd.Parameters.AddWithValue("@DOC_REC_DATE", dtRecDate);
                         cmd.Parameters.AddWithValue("@Category_id", Settings.Default.CategoryId_Retrieve);
+
+                        ar.WaitOne();
+                        var dtSent = string.IsNullOrWhiteSpace(item.LastSavedData)
+                            ? DateTime.Now.Date
+                            : DataTableHelper.ConvertStrToDate(item.LastSavedData, Settings.Default.DateFormat);
+                        cmd.Parameters.AddWithValue("@DateSent", dtSent);
                         cmd.ExecuteNonQuery();
                     }
                 }
                 finally
                 {
-                    if (conn.State == ConnectionState.Open)
-                    {
-                        conn.Close();
-                    }
+                    ar.Dispose();
+                    if (conn.State == ConnectionState.Open) { conn.Close(); }
                 }
             }
         }

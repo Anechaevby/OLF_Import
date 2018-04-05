@@ -187,5 +187,14 @@ namespace OLF_Import.Properties {
                 this["TestUserSettings"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dd.MM.yyyy HH:mm:ss")]
+        public string DateFormat {
+            get {
+                return ((string)(this["DateFormat"]));
+            }
+        }
     }
 }
